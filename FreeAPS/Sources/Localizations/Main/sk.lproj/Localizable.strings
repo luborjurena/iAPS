@@ -2955,3 +2955,8 @@ Režim EatingSoon TT musí byť aktívny aspoň počas tohto trvania, inak sa B3
 
 /* Headline "Adjustment Factor" */
 "Adjustment Factor" = "Faktor úpravy";
+
+/* Apple Watch Translations */
+"Overrides" = "Profily";
+
+"Cancel Override" = "Zrušenie profilu";
