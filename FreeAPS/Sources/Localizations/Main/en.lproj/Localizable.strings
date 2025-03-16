@@ -2906,6 +2906,9 @@ Enact a temp Basal or a temp target */
 /* UI/UX option */
 "Display carb equivalents" = "Display carb equivalents";
 
+/* UI/UX option */
+"Display carb equivalent amount" = "Display carb equivalent amount";
+
 /* Setting title */
 "Bolus Calculator" = "Bolus Calculator";
 
