@@ -692,11 +692,11 @@ extension Home {
         var timeSetting: some View {
             let string = "\(state.hours) " + NSLocalizedString("hours", comment: "") + "   "
             return Menu(string) {
-                Button("3 " + NSLocalizedString("hours", comment: ""), action: { state.hours = 3 })
-                Button("6 " + NSLocalizedString("hours", comment: ""), action: { state.hours = 6 })
-                Button("9 " + NSLocalizedString("hours", comment: ""), action: { state.hours = 9 })
-                Button("12 " + NSLocalizedString("hours", comment: ""), action: { state.hours = 12 })
-                Button("24 " + NSLocalizedString("hours", comment: ""), action: { state.hours = 24 })
+                Button(NSLocalizedString("3 hours", comment: ""), action: { state.hours = 3 })
+                Button(NSLocalizedString("6 hours", comment: ""), action: { state.hours = 6 })
+                Button(NSLocalizedString("9 hours", comment: ""), action: { state.hours = 9 })
+                Button(NSLocalizedString("12 hours", comment: ""), action: { state.hours = 12 })
+                Button(NSLocalizedString("24 hours", comment: ""), action: { state.hours = 24 })
                 Button("UI/UX Settings", action: { state.showModal(for: .statisticsConfig) })
             }
             .buttonStyle(.borderless)
