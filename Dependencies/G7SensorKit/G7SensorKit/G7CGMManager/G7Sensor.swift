@@ -130,12 +130,14 @@ public final class G7Sensor: G7BluetoothManagerDelegate {
     }
 
     private func handleGlucoseMessage(message: G7GlucoseMessage, peripheralManager: G7PeripheralManager) {
-        activationDate = Date().addingTimeInterval(-TimeInterval(message.glucoseTimestamp))
+        activationDate = Date().addingTimeInterval(-TimeInterval(message.messageTimestamp))
+        log.default("Setting activation date based on message timestamp: %d", message.messageTimestamp)
         peripheralManager.perform { (peripheral) in
-            self.log.debug("Listening for backfill responses")
+            self.log.default("Subscribing to backfill characteristic for sensor")
             // Subscribe to backfill updates
             do {
                 try peripheral.listenToCharacteristic(.backfill)
+                self.log.default("Successfully subscribed to backfill characteristic")
             } catch let error {
                 self.log.error("Error trying to enable notifications on backfill characteristic: %{public}@", String(describing: error))
                 self.delegateQueue.async {
@@ -264,24 +266,31 @@ public final class G7Sensor: G7BluetoothManagerDelegate {
     
     func flushBackfillBuffer() {
         if backfillBuffer.count > 0 {
+            log.default("Flushing backfill buffer with %d messages", backfillBuffer.count)
             let backfill = backfillBuffer
             self.backfillBuffer = []
             delegateQueue.async {
                 self.delegate?.sensor(self, didReadBackfill: backfill)
             }
+        } else {
+            log.debug("No backfill data to flush")
         }
     }
 
     func bluetoothManager(_ manager: G7BluetoothManager, didReceiveBackfillResponse response: Data) {
 
-        log.debug("Received backfill response: %{public}@", response.hexadecimalString)
+        log.default("Received backfill response: %{public}@", response.hexadecimalString)
 
         guard response.count == 9 else {
+            log.error("Invalid backfill response length: %d", response.count)
             return
         }
 
         if let msg = G7BackfillMessage(data: response) {
+            log.default("Successfully parsed backfill message: %{public}@", String(describing: msg))
             backfillBuffer.append(msg)
+        } else {
+            log.error("Failed to parse backfill message from data: %{public}@", response.hexadecimalString)
         }
     }
 
