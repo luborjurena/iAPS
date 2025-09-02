@@ -257,7 +257,7 @@ public final class G7Sensor: G7BluetoothManagerDelegate {
         case .backfillFinished:
                 flushBackfillBuffer()
         default:
-            delegate?.sensor(self, logComms: response.hexadecimalString)
+            self.delegate?.sensor(self, logComms: response.hexadecimalString)
             break
         }
     }
