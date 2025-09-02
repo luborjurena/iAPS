@@ -420,6 +420,10 @@ extension G7CGMManager: G7SensorDelegate {
             observer.g7ConnectionStatusDidChange()
         }
     }
+
+    public func sensor(_ sensor: G7Sensor, logComms message: String) {
+        logDeviceCommunication("Sensor communication: \(message)", type: .receive)
+    }
 }
 
 extension G7BackfillMessage {

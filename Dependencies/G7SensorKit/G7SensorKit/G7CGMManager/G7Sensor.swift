@@ -30,6 +30,13 @@ public protocol G7SensorDelegate: AnyObject {
     func sensorConnectionStatusDidUpdate(_ sensor: G7Sensor)
 }
 
+// Optional delegate methods
+public extension G7SensorDelegate {
+    func sensor(_ sensor: G7Sensor, logComms message: String) {
+        // Default empty implementation for optional method
+    }
+}
+
 public enum G7SensorError: Error {
     case authenticationError(String)
     case controlError(String)
@@ -236,7 +243,7 @@ public final class G7Sensor: G7BluetoothManagerDelegate {
 
         guard response.count > 0 else { return }
 
-        log.debug("Received control response: %{public}@", response.hexadecimalString)
+        log.default("Received control response: %{public}@", response.hexadecimalString)
 
         switch G7Opcode(rawValue: response[0]) {
         case .glucoseTx?:
@@ -250,7 +257,7 @@ public final class G7Sensor: G7BluetoothManagerDelegate {
         case .backfillFinished:
                 flushBackfillBuffer()
         default:
-            // We ignore all other known opcodes
+            delegate?.sensor(self, logComms: response.hexadecimalString)
             break
         }
     }
