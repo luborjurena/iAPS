@@ -376,6 +376,7 @@ extension G7CGMManager: G7SensorDelegate {
     }
 
     public func sensor(_ sensor: G7Sensor, didReadBackfill backfill: [G7BackfillMessage]) {
+        log.default("Sensor didReadBackfill called with \(backfill.count) messages")
         for msg in backfill {
             logDeviceCommunication("Sensor didReadBackfill \(msg)", type: .receive)
         }
@@ -398,9 +399,12 @@ extension G7CGMManager: G7SensorDelegate {
             }
 
             let quantity = HKQuantity(unit: unit, doubleValue: Double(min(max(glucose, GlucoseLimits.minimum), GlucoseLimits.maximum)))
+            
+            let sampleDate = activationDate.addingTimeInterval(TimeInterval(entry.timestamp))
+            log.default("Processing backfill sample: glucose=\(glucose), timestamp=\(entry.timestamp), date=\(sampleDate)")
 
             return NewGlucoseSample(
-                date: activationDate.addingTimeInterval(TimeInterval(entry.timestamp)),
+                date: sampleDate,
                 quantity: quantity,
                 condition: entry.condition,
                 trend: entry.trendType,
@@ -412,6 +416,7 @@ extension G7CGMManager: G7SensorDelegate {
             )
         }
 
+        log.default("Processed \(samples.count) backfill samples, updating delegate")
         updateDelegate(with: .newData(samples))
     }
 
