@@ -27,6 +27,7 @@ final class ServiceAssembly: Assembly {
         container.register(GarminManager.self) { r in BaseGarminManager(resolver: r) }
         container.register(ContactTrickManager.self) { r in BaseContactTrickManager(resolver: r) }
         container.register(LiveActivityBridge.self) { r in LiveActivityBridge(resolver: r) }
+        container.register(ScreenIdleTimerManager.self) { r in ScreenIdleTimerManager(resolver: r) }
         container.register(CoreDataStorageGlucoseSaver.self) { r in CoreDataStorageGlucoseSaver(resolver: r) }
     }
 }
