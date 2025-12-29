@@ -61,6 +61,7 @@ struct FreeAPSSettings: JSON, Equatable {
     var useTargetButton: Bool = false
     var alwaysUseColors: Bool = false
     var timeSettings: Bool = true
+    var keepScreenOn: Bool = false
     var disable15MinTrend: Bool = false
     var hidePredictions: Bool = false
     // Sounds
@@ -483,6 +484,10 @@ extension FreeAPSSettings: Decodable {
 
         if let timeSettings = try? container.decode(Bool.self, forKey: .timeSettings) {
             settings.timeSettings = timeSettings
+        }
+
+        if let keepScreenOn = try? container.decode(Bool.self, forKey: .keepScreenOn) {
+            settings.keepScreenOn = keepScreenOn
         }
 
         if let hypoSound = try? container.decode(String.self, forKey: .hypoSound) {

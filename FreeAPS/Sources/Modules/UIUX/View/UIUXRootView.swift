@@ -64,6 +64,10 @@ extension UIUX {
                     }
 
                 Section {
+                    Toggle("Keep Screen On While iAPS Is Open", isOn: $state.keepScreenOn)
+                } header: { Text("Screen") }
+
+                Section {
                     HStack {
                         Text("Low")
                         Spacer()
