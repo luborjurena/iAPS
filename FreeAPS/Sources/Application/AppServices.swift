@@ -24,6 +24,7 @@ class AppServices: ObservableObject {
         _ = FreeAPSApp.resolver.resolve(HealthKitManager.self)!
         _ = FreeAPSApp.resolver.resolve(BluetoothStateManager.self)!
         _ = FreeAPSApp.resolver.resolve(LiveActivityBridge.self)!
+        _ = FreeAPSApp.resolver.resolve(ScreenIdleTimerManager.self)!
         settingsManager = resolver.resolve(SettingsManager.self)!
         carbsStorage = resolver.resolve(CarbsStorage.self)!
         calendarManager = resolver.resolve(CalendarManager.self)!
