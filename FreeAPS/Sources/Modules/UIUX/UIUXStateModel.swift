@@ -32,6 +32,7 @@ extension UIUX {
         @Published var useCarbBars: Bool = false
         @Published var ai: Bool = true
         @Published var skipSave: Bool = false
+        @Published var keepScreenOn: Bool = false
 
         var units: GlucoseUnits = .mmolL
 
@@ -65,6 +66,7 @@ extension UIUX {
             subscribeSetting(\.useCarbBars, on: $useCarbBars) { useCarbBars = $0 }
             subscribeSetting(\.ai, on: $ai) { ai = $0 }
             subscribeSetting(\.skipSave, on: $skipSave) { skipSave = $0 }
+            subscribeSetting(\.keepScreenOn, on: $keepScreenOn) { keepScreenOn = $0 }
 
             subscribeSetting(\.low, on: $low, initial: {
                 let value = max(min($0, 90), 40)
